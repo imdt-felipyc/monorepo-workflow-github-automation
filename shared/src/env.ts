@@ -6,13 +6,13 @@ config({ path: '../.env' })
 
 // Define the schema using zod
 const envSchema = z.object({
-  GITHUB_APP_ID: z.string().min(1, 'GITHUB_APP_ID is required'),
-  GITHUB_ORG: z.string().min(1, 'GITHUB_ORG is required'),
-  GITHUB_APP_PRIVATE_KEY_BASE64: z.string().min(1, 'PRIVATE_KEY is required'),
-  GITHUB_WEBHOOK_SECRET_HMAC: z.string().min(1, 'WEBHOOK_SECRET is required'),
-  GITHUB_USERNAME: z.string().min(1, 'GITHUB_USER is required'),
-  GITHUB_REPO_NAME: z.string().min(1, 'GITHUB_REPO_NAME is required'),
-  GITHUB_APP_NAME: z.string().min(1, 'GITHUB_APP_NAME is required'),
+  GH_GITHUB_APP_ID: z.string().min(1, 'GH_GITHUB_APP_ID is required'),
+  GH_GITHUB_ORG: z.string().min(1, 'GH_GITHUB_ORG is required'),
+  GH_GITHUB_APP_PRIVATE_KEY_BASE64: z.string().min(1, 'PRIVATE_KEY is required'),
+  GH_GITHUB_WEBHOOK_SECRET_HMAC: z.string().min(1, 'WEBHOOK_SECRET is required'),
+  GH_GITHUB_USERNAME: z.string().min(1, 'GH_GITHUB_USER is required'),
+  GH_GITHUB_REPO_NAME: z.string().min(1, 'GH_GITHUB_REPO_NAME is required'),
+  GH_GITHUB_APP_NAME: z.string().min(1, 'GH_GITHUB_APP_NAME is required'),
 
   S3_ACCESS_KEY: z.string().min(1, 'S3_ACCESS_KEY is required'),
   S3_SECRET_KEY: z.string().min(1, 'S3_SECRET_KEY is required'),

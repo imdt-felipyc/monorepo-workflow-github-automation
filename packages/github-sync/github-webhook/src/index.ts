@@ -7,7 +7,7 @@ import {
 } from '@repo/shared'
 import { verifySignature } from './verify-signature.js'
 
-const { GITHUB_WEBHOOK_SECRET_HMAC, GITHUB_APP_NAME } = env
+const { GH_GITHUB_WEBHOOK_SECRET_HMAC, GH_GITHUB_APP_NAME } = env
 
 async function handler(args: any) {
   // used when invoking the function locally by passing -p debug:true
@@ -37,7 +37,7 @@ async function handler(args: any) {
   }
 
   const isValid = verifySignature(
-    GITHUB_WEBHOOK_SECRET_HMAC,
+    GH_GITHUB_WEBHOOK_SECRET_HMAC,
     Buffer.from(body),
     signature,
   )
@@ -52,7 +52,7 @@ async function handler(args: any) {
   body = JSON.parse(body)
 
   // Ignore events from the GitHub app
-  if (body?.sender?.login === GITHUB_APP_NAME) {
+  if (body?.sender?.login === GH_GITHUB_APP_NAME) {
     return {
       statusCode: 200,
       body: JSON.stringify({ status: 'ignored', reason: 'Event from bot' }),

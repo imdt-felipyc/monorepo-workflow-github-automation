@@ -2,28 +2,28 @@ import jwt from 'jsonwebtoken'
 import { env } from '../env.js'
 
 export class GitHubService {
-  private GITHUB_APP_ID: string
-  private GITHUB_ORG: string
-  private GITHUB_APP_PRIVATE_KEY_BASE64: string
-  private GITHUB_USERNAME: string
-  private GITHUB_REPO_NAME: string
+  private GH_GITHUB_APP_ID: string
+  private GH_GITHUB_ORG: string
+  private GH_GITHUB_APP_PRIVATE_KEY_BASE64: string
+  private GH_GITHUB_USERNAME: string
+  private GH_GITHUB_REPO_NAME: string
   private token: string | null
   private tokenExpiresAt: number | null
 
   constructor() {
     const {
-      GITHUB_APP_ID,
-      GITHUB_ORG,
-      GITHUB_APP_PRIVATE_KEY_BASE64,
-      GITHUB_USERNAME,
-      GITHUB_REPO_NAME,
+      GH_GITHUB_APP_ID,
+      GH_GITHUB_ORG,
+      GH_GITHUB_APP_PRIVATE_KEY_BASE64,
+      GH_GITHUB_USERNAME,
+      GH_GITHUB_REPO_NAME,
     } = env
 
-    this.GITHUB_APP_ID = GITHUB_APP_ID
-    this.GITHUB_ORG = GITHUB_ORG
-    this.GITHUB_APP_PRIVATE_KEY_BASE64 = GITHUB_APP_PRIVATE_KEY_BASE64
-    this.GITHUB_USERNAME = GITHUB_USERNAME
-    this.GITHUB_REPO_NAME = GITHUB_REPO_NAME
+    this.GH_GITHUB_APP_ID = GH_GITHUB_APP_ID
+    this.GH_GITHUB_ORG = GH_GITHUB_ORG
+    this.GH_GITHUB_APP_PRIVATE_KEY_BASE64 = GH_GITHUB_APP_PRIVATE_KEY_BASE64
+    this.GH_GITHUB_USERNAME = GH_GITHUB_USERNAME
+    this.GH_GITHUB_REPO_NAME = GH_GITHUB_REPO_NAME
 
     this.token = null
     this.tokenExpiresAt = null
@@ -36,9 +36,9 @@ export class GitHubService {
       return this.token
     }
 
-    const appId = this.GITHUB_APP_ID
+    const appId = this.GH_GITHUB_APP_ID
     const privateKey = Buffer.from(
-      this.GITHUB_APP_PRIVATE_KEY_BASE64,
+      this.GH_GITHUB_APP_PRIVATE_KEY_BASE64,
       'base64',
     ).toString('utf8')
 
@@ -64,7 +64,7 @@ export class GitHubService {
 
     const installations = await installationRes.json()
     const installationId = installations.find(
-      (inst: any) => inst.account?.login === this.GITHUB_ORG,
+      (inst: any) => inst.account?.login === this.GH_GITHUB_ORG,
     )?.id
 
     if (!installationId) throw new Error('Installation not found')
@@ -182,7 +182,7 @@ export class GitHubService {
   async getProjectIds() {
     const query = `
       query {
-        organization(login: "${this.GITHUB_ORG}") {
+        organization(login: "${this.GH_GITHUB_ORG}") {
           projectsV2(first: 20) {
             nodes {
               id
@@ -216,7 +216,7 @@ export class GitHubService {
     const after = cursor ? `, after: "${cursor}"` : ''
     const query = `
       query {
-        repository(owner: "${this.GITHUB_ORG}", name: "${this.GITHUB_REPO_NAME}") {
+        repository(owner: "${this.GH_GITHUB_ORG}", name: "${this.GH_GITHUB_REPO_NAME}") {
           issues(first: 100${after}) {
             pageInfo {
               hasNextPage
@@ -311,7 +311,7 @@ export class GitHubService {
     const after = cursor ? `, after: "${cursor}"` : ''
     const query = `
       query {
-        repository(owner: "${this.GITHUB_ORG}", name: "${this.GITHUB_REPO_NAME}") {
+        repository(owner: "${this.GH_GITHUB_ORG}", name: "${this.GH_GITHUB_REPO_NAME}") {
           issues(first: 50${after}) {
             pageInfo {
               hasNextPage

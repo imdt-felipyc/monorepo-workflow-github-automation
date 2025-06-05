@@ -68,7 +68,7 @@ This project automates workflows within GitHub Projects using serverless functio
 - **nvm**: v0.39.1
 - **doctl digital ocean**: doctl version 1.127.0-release
 - Environment variables must be defined either in a `.env` file at the root or via the DigitalOcean control panel.
-    - The variable `GITHUB_APP_NAME` must include the `[bot]` prefix because the `sender` attribute sent by GitHub appends this automatically.
+    - The variable `GH_GITHUB_APP_NAME` must include the `[bot]` prefix because the `sender` attribute sent by GitHub appends this automatically.
 - For the synchronization to work, ensure that the title of the GitHub Project includes `[SYNC]`. This is required for the automation to identify and process the project correctly.
 - To disable all workflows across all projects via the GitHub interface.
 
