@@ -1,0 +1,25 @@
+{
+    "name": "@repo/shared",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build-serverless": "tsup src/index.ts --format esm,cjs --dts"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "*",
+        "@repo/ts-config": "*",
+        "@types/jsonwebtoken": "^9.0.9",
+        "@types/node": "20.12.5",
+        "tsup": "^8.5.0",
+        "typescript": "^4.8.4"
+    },
+    "dependencies": {
+        "aws-sdk": "^2.1692.0",
+        "dotenv": "^16.5.0",
+        "jsonwebtoken": "^9.0.2",
+        "zod": "^3.24.4"
+    }
+}

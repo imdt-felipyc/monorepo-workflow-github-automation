@@ -1,0 +1,17 @@
+[
+  {
+    "apihost": "https://faas-fra1-afec6ce7.doserverless.co",
+    "namespace": "fn-76c0c73b-7786-40fc-88c7-40e95924af0c",
+    "packageVersions": {},
+    "actionVersions": {
+      "github-sync/batch-sync-overview": {
+        "digest": "f3df51cfcbc830aed6a303f988d057711a4b5d40394e85f9e149be16936681d9",
+        "version": "0.0.175"
+      },
+      "github-sync/github-webhook": {
+        "digest": "e5b50a9b69ad79cf41296e2fc4e3040508237ff8e8616302f90146e835ef5f89",
+        "version": "0.0.182"
+      }
+    }
+  }
+]
