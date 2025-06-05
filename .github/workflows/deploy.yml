@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean Functions
 on:
   push:
     branches: 
-    - main  # ou outro branch que você usar
+      - main  # ou outro branch que você usar
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
