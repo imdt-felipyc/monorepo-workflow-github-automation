@@ -2,37 +2,63 @@ name: Deploy to DigitalOcean Functions
 
 on:
   push:
-    branches: [main]  # ou outro branch que você usar
+    branches: 
+    - main  # ou outro branch que você usar
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   deploy:
+    name: Deploy to DigitalOcean Functions
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
+
+      - name: 1
+        run: date
 
       - name: Instalar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      
+      - name: 2
+        run: date
 
       - name: Instalar dependências
         run: npm ci
 
+      - name: 3
+        run: date
+
       - name: Gerar build para @shared
         run: npm run build-serverless
 
+      - name: 4
+        run: date
+
       - name: Gerar buiild com todas as dependencias em um so arquivo
         run: npm run build-ncc
+
+      - name: 5
+        run: date
 
       - name: Autenticar com doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DOCTL_API_TOKEN }}
 
+      - name: 6
+        run: date
+
       - name: Selecionar namespace
         run: doctl serverless namespace set fn-76c0c73b-7786-40fc-88c7-40e95924af0c
+
+      - name: 7
+        run: date
 
       - name: Deploy para Functions
         run: doctl serverless deploy . --remote-build
