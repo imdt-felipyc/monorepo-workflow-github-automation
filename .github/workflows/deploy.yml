@@ -31,7 +31,7 @@ jobs:
           echo "🕐 Início: $(date)"
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
 
       - name: 3
         run: |
