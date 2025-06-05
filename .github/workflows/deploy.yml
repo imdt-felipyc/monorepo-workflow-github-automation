@@ -61,14 +61,15 @@ jobs:
           echo "🕐 Início: $(date)"
       
       - name: Instalar Serverless CLI
-        run: doctl serverless install     
+        run: doctl serverless install
+
       
       - name: 6.1
         run: |
           echo "🕐 Início: $(date)"
 
-      - name: Selecionar namespace
-        run: doctl serverless namespace set fn-76c0c73b-7786-40fc-88c7-40e95924af0c
+      - name: conectar a um namespace
+        run: doctl serverless connect fn-76c0c73b-7786-40fc-88c7-40e95924af0c
 
       - name: 7
         run: |
