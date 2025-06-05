@@ -56,7 +56,14 @@ jobs:
         with:
           token: ${{ secrets.DOCTL_API_TOKEN }}
 
-      - name: 6
+      - name: 6.0
+        run: |
+          echo "🕐 Início: $(date)"
+      
+      - name: Instalar Serverless CLI
+        run: doctl serverless install     
+      
+      - name: 6.1
         run: |
           echo "🕐 Início: $(date)"
 
