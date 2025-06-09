@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import fastifyRawBody from 'fastify-raw-body'
-import { main as githubWebhook } from '@repo/github-webhook/src'
+import { main as githubWebhook } from '@repo/github-webhook'
 
 const fastify = Fastify({
   logger: false,

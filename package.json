@@ -9,7 +9,6 @@
     "eslint-config"
   ],
   "scripts": {
-    "dev-server": "npm run dev-server",
     "build-ncc": "turbo run build-ncc",
     "dev-tsup": "turbo run dev-tsup --parallel",
     "lint": "turbo run lint"
