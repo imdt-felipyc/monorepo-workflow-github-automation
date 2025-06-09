@@ -1,0 +1,67 @@
+name: Deploy to DigitalOcean Functions
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+on:
+  workflow_dispatch
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to DigitalOcean Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Generate .env file
+        run: |
+          cat <<EOF > .env
+            GH_GITHUB_APP_ID=${{ secrets.GH_GITHUB_APP_ID }}
+            GH_GITHUB_ORG=${{ secrets.GH_GITHUB_ORG }}
+            GH_GITHUB_APP_PRIVATE_KEY_BASE64=${{ secrets.GH_GITHUB_APP_PRIVATE_KEY_BASE64 }}
+            GH_GITHUB_WEBHOOK_SECRET_HMAC=${{ secrets.GH_GITHUB_WEBHOOK_SECRET_HMAC }}
+            GH_GITHUB_USERNAME=${{ secrets.GH_GITHUB_USERNAME }}
+            GH_GITHUB_REPO_NAME=${{ secrets.GH_GITHUB_REPO_NAME }}
+            GH_GITHUB_APP_NAME=${{ secrets.GH_GITHUB_APP_NAME }}
+            S3_ACCESS_KEY=${{ secrets.S3_ACCESS_KEY }}
+            S3_SECRET_KEY=${{ secrets.S3_SECRET_KEY }}
+            S3_BUCKET=${{ secrets.S3_BUCKET }}
+            S3_REGION=${{ secrets.S3_REGION }}
+            S3_ENDPOINT=${{ secrets.S3_ENDPOINT }}
+            SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}
+          EOF
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build @shared package
+        run: npm run build-serverless
+
+      - name: Build single file with all dependencies
+        run: npm run build-ncc
+
+      - name: Authenticate with doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCTL_API_TOKEN }}
+      
+      - name: Install Serverless CLI
+        run: doctl serverless install
+
+      - name: Connect to namespace
+        run: doctl serverless connect fn-76c0c73b-7786-40fc-88c7-40e95924af0c
+
+      - name: Deploy to Functions
+        run: doctl serverless deploy . --remote-build

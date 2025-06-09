@@ -1,0 +1,21 @@
+{
+  "pipeline": {
+    "build-ncc": {
+      "outputs": [
+        "dist/**"
+      ],
+      "dependsOn": [
+        "^build-ncc"
+      ]
+    },
+    "dev-tsup": {
+      "cache": false,
+      "outputs": [
+        "dist/**"
+      ],
+      "dependsOn": [
+        "^dev-tsup"
+      ]
+    }
+  }
+}
