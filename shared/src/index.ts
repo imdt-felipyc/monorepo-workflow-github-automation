@@ -1,6 +1,0 @@
-export * from './services/github.service'
-export * from './services/logger'
-export * from './services/notifier'
-export * from './services/sync.service'
-export * from './env'
-export * from './mockreq'
