@@ -6,7 +6,6 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build-ncc": "ncc build src/index.ts -o dist --minify",
-    "dev-tsup": "tsup src/index.ts --format esm,cjs --dts --watch",
     "lint": "eslint src/**/*.ts* --fix"
   },
   "type": "module",
