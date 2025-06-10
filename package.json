@@ -1,0 +1,22 @@
+{
+  "name": "essr-github-automations",
+  "private": true,
+  "workspaces": [
+    "dev-server",
+    "packages/github-sync/*",
+    "shared",
+    "ts-config",
+    "eslint-config"
+  ],
+  "scripts": {
+    "build-ncc": "turbo run build-ncc",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^1.5.5"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "packageManager": "npm@10.8.2"
+}
