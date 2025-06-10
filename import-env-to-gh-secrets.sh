@@ -2,9 +2,12 @@
 
 REPO="imdt-felipyc/monorepo-workflow-github-automation"
 
-while IFS='=' read -r key value; do
-  if [[ ! -z "$key" && ! "$key" =~ ^# ]]; then
-    echo "🔐 Add $key"
-    gh secret set "$key" --repo "$REPO" --body "$value"
+while IFS='=' read -r key value || [ -n "$key" ]; do
+  value="${value%\"}"
+  value="${value#\"}"
+  
+  if [[ -n "$key" && ! "$key" =~ ^# ]]; then
+    echo "🔐 Setting secret: $key"
+    echo "$value" | gh secret set "$key" --repo "$REPO" --body -
   fi
 done < .env
