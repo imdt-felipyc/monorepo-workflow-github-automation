@@ -1,9 +1,4 @@
-name: Deploy to DigitalOcean Functions
-
-# on:
-#   push:
-#     branches:
-#       - main
+name: Manual Deploy to DigitalOcean Functions
 
 on:
   workflow_dispatch
@@ -14,16 +9,25 @@ concurrency:
 
 jobs:
   deploy:
-    name: Deploy to DigitalOcean Functions
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Ensure DigitalOcean token is present
+        run: |
+          if [ -z "${{ secrets.DOCTL_API_TOKEN }}" ]; then
+            echo "❌ DOCTL_API_TOKEN is not set"; exit 1;
+          fi
 
       - name: Generate .env file
         run: |
@@ -45,17 +49,18 @@ jobs:
             SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}
           EOF
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
 
-      - name: Build single file with all dependencies
-        run: npm run build-ncc
+      - run: npm run build-ncc
 
       - name: Authenticate with doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DOCTL_API_TOKEN }}
-      
+
+      - name: Show doctl version
+        run: doctl version
+
       - name: Install Serverless CLI
         run: doctl serverless install
 
@@ -64,3 +69,6 @@ jobs:
 
       - name: Deploy to Functions
         run: doctl serverless deploy . --remote-build
+
+      - name: Cleanup .env
+        run: rm .env
