@@ -51,6 +51,13 @@ jobs:
       - name: Build single file with all dependencies
         run: npm run build-ncc
 
+      - name: Debug secrets presence
+        run: |
+          echo "DOCTL_API_TOKEN is ${DOCTL_API_TOKEN:+set}"
+        env:
+          DOCTL_API_TOKEN: ${{ secrets.DOCTL_API_TOKEN }}
+
+
       - name: Authenticate with doctl
         uses: digitalocean/action-doctl@v2
         with:
