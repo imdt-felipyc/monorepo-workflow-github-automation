@@ -34,21 +34,21 @@ jobs:
       - name: Generate .env file
         run: |
           cat <<EOF > .env
-            GH_GITHUB_APP_ID=${{ vars.GH_GITHUB_APP_ID }}
-            GH_GITHUB_ORG=${{ vars.GH_GITHUB_ORG }}
-            GH_GITHUB_APP_PRIVATE_KEY_BASE64=${{ vars.GH_GITHUB_APP_PRIVATE_KEY_BASE64 }}
-            GH_GITHUB_WEBHOOK_SECRET_HMAC=${{ vars.GH_GITHUB_WEBHOOK_SECRET_HMAC }}
-            GH_GITHUB_USERNAME=${{ vars.GH_GITHUB_USERNAME }}
-            GH_GITHUB_REPO_NAME=${{ vars.GH_GITHUB_REPO_NAME }}
-            GH_GITHUB_APP_NAME=${{ vars.GH_GITHUB_APP_NAME }}
-            DO_SERVERLESS_NAMESPACE_ID=${{ vars.DO_SERVERLESS_NAMESPACE_ID }}
-            DOCTL_API_TOKEN=${{ vars.DOCTL_API_TOKEN }}
-            S3_ACCESS_KEY=${{ vars.S3_ACCESS_KEY }}
-            S3_SECRET_KEY=${{ vars.S3_SECRET_KEY }}
-            S3_BUCKET=${{ vars.S3_BUCKET }}
-            S3_REGION=${{ vars.S3_REGION }}
-            S3_ENDPOINT=${{ vars.S3_ENDPOINT }}
-            SLACK_WEBHOOK_URL=${{ vars.SLACK_WEBHOOK_URL }}
+            GH_GITHUB_APP_ID=${{ secrets.GH_GITHUB_APP_ID }}
+            GH_GITHUB_ORG=${{ secrets.GH_GITHUB_ORG }}
+            GH_GITHUB_APP_PRIVATE_KEY_BASE64=${{ secrets.GH_GITHUB_APP_PRIVATE_KEY_BASE64 }}
+            GH_GITHUB_WEBHOOK_SECRET_HMAC=${{ secrets.GH_GITHUB_WEBHOOK_SECRET_HMAC }}
+            GH_GITHUB_USERNAME=${{ secrets.GH_GITHUB_USERNAME }}
+            GH_GITHUB_REPO_NAME=${{ secrets.GH_GITHUB_REPO_NAME }}
+            GH_GITHUB_APP_NAME=${{ secrets.GH_GITHUB_APP_NAME }}
+            DO_SERVERLESS_NAMESPACE_ID=${{ secrets.DO_SERVERLESS_NAMESPACE_ID }}
+            DOCTL_API_TOKEN=${{ secrets.DOCTL_API_TOKEN }}
+            S3_ACCESS_KEY=${{ secrets.S3_ACCESS_KEY }}
+            S3_SECRET_KEY=${{ secrets.S3_SECRET_KEY }}
+            S3_BUCKET=${{ secrets.S3_BUCKET }}
+            S3_REGION=${{ secrets.S3_REGION }}
+            S3_ENDPOINT=${{ secrets.S3_ENDPOINT }}
+            SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}
           EOF
 
       - run: npm install
@@ -58,7 +58,7 @@ jobs:
       - name: Authenticate with doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: ${{ vars.DOCTL_API_TOKEN }}
+          token: ${{ secrets.DOCTL_API_TOKEN }}
 
       - name: Show doctl version
         run: doctl version
@@ -67,7 +67,7 @@ jobs:
         run: doctl serverless install
 
       - name: Connect to namespace
-        run: doctl serverless connect ${{ vars.DO_SERVERLESS_NAMESPACE_ID }}
+        run: doctl serverless connect ${{ secrets.DO_SERVERLESS_NAMESPACE_ID }}
 
       - name: Deploy to Functions
         run: doctl serverless deploy . 
