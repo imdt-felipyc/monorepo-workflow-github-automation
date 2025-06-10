@@ -27,9 +27,9 @@ const envSchema = z.object({
   S3_SECRET_KEY: z.string().min(1, 'S3_SECRET_KEY is required'),
   S3_BUCKET: z.string().min(1, 'S3_BUCKET is required'),
   S3_REGION: z.string().min(1, 'S3_REGION is required'),
-  S3_ENDPOINT: z.string().url('S3_ENDPOINT must be a valid URL'),
+  S3_ENDPOINT: z.string().min(1, 'S3_ENDPOINT must be a valid URL'),
 
-  SLACK_WEBHOOK_URL: z.string().url('SLACK_WEBHOOK_URL must be a valid URL'),
+  SLACK_WEBHOOK_URL: z.string().min(1, 'SLACK_WEBHOOK_URL must be a valid URL'),
 })
 
 // Validate the environment variables
