@@ -1,0 +1,14 @@
+# Ignorar dependências locais (serão instaladas no ambiente remoto)
+node_modules/
+
+# Ignorar lockfile se estiver com problemas
+package-lock.json
+
+# Ignorar arquivos de controle de versão
+.git/
+.gitignore
+
+# Ignorar arquivos temporários ou locais
+.DS_Store
+*.log
+.env
