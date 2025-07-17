@@ -5,6 +5,7 @@ test.describe('home', () => {
     await page.goto('/');
     await expect(page.getByText('Gesundheitskurse für alle')).toBeVisible();
   });
+  
 
   test(
     'each header menu item page should contain the class course-atf__content',
