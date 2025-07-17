@@ -1,0 +1,21 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:local": "BASE_URL=https://localhost.schooldrive.ch:50003 playwright test",
+    "test:ui": "BASE_URL=https://localhost.schooldrive.ch:50003 playwright test --ui",
+    "test:debug-local": "DEBUG=pw:api,pw:browser* BASE_URL=https://localhost.schooldrive.ch:50003 playwright test",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.14",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,50 @@
+name: Playwright on Bot Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  playwright-test:
+    if: |
+      github.event.issue.pull_request != null &&
+      github.event.comment.user.login == 'imdt-felipyc' &&
+      contains(github.event.comment.body, 'This pull request has been deployed to:')
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract link from comment
+        id: extract_link
+        run: |
+          LINK=$(echo "${{ github.event.comment.body }}" | grep -o 'https://[^ ]*')
+          if [ -z "$LINK" ]; then
+            echo "❌ No deployment link found in the comment. Regex did not match."
+            exit 1
+          fi
+          echo "Extracted LINK: $LINK"
+          echo "LINK=$LINK" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        working-directory: playwright
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        working-directory: playwright
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: playwright
+        run: BASE_URL=${{ steps.extract_link.outputs.LINK }} npx playwright test
+
+      # - uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-report
+      #     path: playwright/playwright-report/
+      #     retention-days: 30
