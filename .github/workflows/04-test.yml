@@ -39,14 +39,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('playwright/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-playwright-browsers-
-          retention-days: 1
-
       - name: Install dependencies
         working-directory: playwright
         run: npm ci
