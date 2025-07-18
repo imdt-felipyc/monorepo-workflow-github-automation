@@ -36,6 +36,7 @@ In the terminal, follow the steps below to install Playwright dependencies:
   testMatch: '**/*.e2e-spec.ts',
   ```
 
+
 ## Available Scripts
 
 > **Important:** All npm scripts below must be executed from within the `playwright` folder.
