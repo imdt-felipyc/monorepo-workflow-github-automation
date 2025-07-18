@@ -10,7 +10,6 @@ jobs:
       github.event.issue.pull_request != null &&
       github.event.comment.user.login == 'imdt-felipyc' &&
       contains(github.event.comment.body, 'This pull request has been deployed to:')
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Extract link from comment
@@ -23,12 +22,30 @@ jobs:
           fi
           echo "Extracted LINK: $LINK"
           echo "LINK=$LINK" >> $GITHUB_OUTPUT
-
+      
+      # Checks out the repository code
       - uses: actions/checkout@v4
 
+      # This step sets up the Node.js environment using the latest LTS version for subsequent workflow steps.
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: playwright/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('playwright/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('playwright/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-playwright-browsers-
+          retention-days: 1
 
       - name: Install dependencies
         working-directory: playwright
