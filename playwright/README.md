@@ -8,6 +8,7 @@ This directory contains the end-to-end automated test suite using [Playwright](h
 - **npm**: v10.x or higher
 
 
+
 ## Installation
 
 In the terminal, follow the steps below to install Playwright dependencies:
