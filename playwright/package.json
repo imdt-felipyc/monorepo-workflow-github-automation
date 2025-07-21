@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:local": "BASE_URL=https://localhost.schooldrive.ch:50003 playwright test",
-    "test:ui": "BASE_URL=https://localhost.schooldrive.ch:50003 playwright test --ui",
-    "test:debug-local": "DEBUG=pw:api,pw:browser* BASE_URL=https://localhost.schooldrive.ch:50003 playwright test",
+    "test:local": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug-local": "DEBUG=pw:api,pw:browser* playwright test",
     "test:report": "playwright show-report"
   },
   "keywords": [],
@@ -17,5 +17,8 @@
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
