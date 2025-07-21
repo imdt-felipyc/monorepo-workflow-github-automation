@@ -1,129 +1,128 @@
-# Testes Automatizados com Playwright
+# Automated Tests with Playwright
 
-Este diretório contém a suíte de testes automatizados end-to-end utilizando o [Playwright](https://playwright.dev/), desenvolvida em **TypeScript**.
+This directory contains the end-to-end automated test suite using [Playwright](https://playwright.dev/), developed in **TypeScript**.
 
-## Requisitos
+## Requirements
 
-- **Node.js**: v18.x ou superior
-- **npm**: v10.x ou superior
+- **Node.js**: v18.x or higher
+- **npm**: v10.x or higher
 - **Docker**: version 28.3.0, build 38b7060
 
-## Como executar o projeto localmente
+## How to run the project locally
 
-### 1. Fork e Clonagem do Projeto Principal
+### 1. Fork and Clone the Main Project
 
-1. Faça um fork do projeto [ESSR-IT/website-essr](https://github.com/ESSR-IT/website-essr) para sua conta no GitHub.
-2. Clone o fork para sua máquina:
+1. Fork the [ESSR-IT/website-essr](https://github.com/ESSR-IT/website-essr) project to your GitHub account.
+2. Clone your fork to your machine:
    ```bash
-   git clone https://github.com/<seu-usuario>/website-essr.git
+   git clone https://github.com/<your-username>/website-essr.git
    ```
-3. Acesse a raiz do projeto clonado e execute:
+3. Navigate to the root of the cloned project and run:
    ```bash
    ./docker/run
    ```
 
 ---
 
-### 2. Fork e Clonagem do Projeto GSDS
+### 2. Fork and Clone the GSDS Project
 
-1. Faça um fork do projeto [ESSR-IT/website-gsds](https://github.com/ESSR-IT/website-gsds) para sua conta no GitHub.
-2. Clone o fork para sua máquina:
+1. Fork the [ESSR-IT/website-gsds](https://github.com/ESSR-IT/website-gsds) project to your GitHub account.
+2. Clone your fork to your machine:
    ```bash
-   git clone https://github.com/<seu-usuario>/website-gsds.git
+   git clone https://github.com/<your-username>/website-gsds.git
    ```
-3. Acesse a raiz do projeto clonado e execute:
+3. Navigate to the root of the cloned project and run:
    ```bash
    ./docker/run development
    ```
 
 ---
 
-### 3. Instale as Dependências do Playwright
+### 3. Install Playwright Dependencies
 
-Acesse a pasta `playwright` e instale as dependências:
+Navigate to the `playwright` folder and install dependencies:
 ```bash
 cd playwright && npm install
 ```
 
 ---
 
-### 4. Configuração de Ambiente
+### 4. Environment Setup
 
-Duplique o arquivo `.env.test.example` e renomeie para `.env.test`:
+Duplicate the `.env.test.example` file and rename it to `.env.test`:
 ```bash
 cp playwright/.env.test.example playwright/.env.test
 ```
 
 ---
 
-### 5. Instale a Extensão do Playwright no VS Code
+### 5. Install the Playwright Extension in VS Code
 
-Instale a extensão **Playwright Test for VSCode** na sua IDE VS Code.
-
----
-
-### 6. Criando Testes
-
-#### 6.1 Criando Testes de Forma Fácil
-
-Para facilitar sua experiência com o Playwright, recomendamos assistir a vídeos curtos que oferecem um overview da ferramenta e mostram como criar testes de forma simples e visual, diretamente no VS Code.
-
-- [Documentação oficial: Playwright no VS Code](https://playwright.dev/docs/getting-started-vscode)
-
-Com esses recursos, você vai aprender a:
-- Usar o Playwright dentro do VS Code de forma visual
-- Gravar e gerar testes automaticamente, escrevendo pouco código
-- Depurar e inspecionar seus testes de maneira intuitiva
+Install the **Playwright Test for VSCode** extension in your VS Code IDE.
 
 ---
 
-## Informações Importantes
+### 6. Creating Tests
 
-### Arquivos de Teste
+#### 6.1 Creating Tests the Easy Way
 
-- Todos os arquivos de teste devem ser criados dentro da pasta `tests` no diretório `playwright`.
-- O nome do arquivo de teste **deve seguir o padrão** `*.e2e-spec.ts` (por exemplo: `home.e2e-spec.ts`).
-- Exemplo:
+To make your Playwright experience easier, we recommend watching short videos that provide an overview of the tool and demonstrate how to create tests simply and visually, directly from VS Code.
+
+- [Official documentation: Playwright in VS Code](https://playwright.dev/docs/getting-started-vscode)
+
+With these resources, you will learn how to:
+- Use Playwright inside VS Code with a visual interface
+- Record and generate tests automatically, writing minimal code
+- Debug and inspect your tests intuitively
+
+---
+
+## Important Information
+
+### Test Files
+
+- All test files must be created inside the `tests` folder within the `playwright` directory.
+- Test file names **must follow the pattern** `*.e2e-spec.ts` (e.g., `home.e2e-spec.ts`).
+- Example:
   ```
   playwright/test/example.e2e-spec.ts
   ```
-- Apenas arquivos que seguem esse padrão serão executados pelo Playwright, conforme definido na configuração `testMatch`:
+- Only files matching this pattern will be executed by Playwright, as defined in the `testMatch` configuration:
   ```
   testMatch: '**/*.e2e-spec.ts',
   ```
 
-### Variável de Ambiente BASE_URL
+### BASE_URL Environment Variable
 
-- Em ambientes de integração contínua (CI), como o workflow do GitHub Actions, a `BASE_URL` é definida dinamicamente com o link gerado no comentário do pull request pelo bot.
+- In continuous integration (CI) environments such as GitHub Actions workflows, the `BASE_URL` is dynamically set with the link generated in the pull request comment by the bot.
 
 ---
 
-## Scripts Disponíveis
+## Available Scripts
 
-> **Importante:** Todos os scripts npm abaixo devem ser executados a partir da pasta `playwright`.
+> **Important:** All npm scripts below must be run from the `playwright` folder.
 
-- **test**: Executa todos os testes automatizados com o Playwright.
+- **test**: Runs all automated Playwright tests.
   ```bash
   npm run test
   ```
 
-- **test:local**: Executa os testes usando a URL local definida na variável de ambiente `BASE_URL`.
+- **test:local**: Runs tests using the local URL defined in the `BASE_URL` environment variable.
   ```bash
   npm run test:local
   ```
 
-- **test:ui**: Executa os testes com a interface visual do Playwright, útil para depuração e inspeção dos testes.
+- **test:ui**: Runs tests using the visual Playwright UI, useful for debugging and inspecting.
   ```bash
   npm run test:ui
   ```
 
-- **test:debug-local**: Executa os testes localmente com logs detalhados do Playwright para depuração.
+- **test:debug-local**: Runs tests locally with detailed Playwright logs for debugging.
   ```bash
   npm run test:debug-local
   ```
 
-- **test:report**: Abre o relatório dos testes executados anteriormente em uma interface web.
+- **test:report**: Opens a web interface with the report of previously executed tests.
   ```bash
   npm run test:report
   ```
-
