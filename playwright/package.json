@@ -4,10 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:local": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:debug-local": "DEBUG=pw:api,pw:browser* playwright test",
-    "test:report": "playwright show-report"
+    "test:live-record": "playwright codegen -b cr"
   },
   "keywords": [],
   "author": "",
@@ -16,9 +14,7 @@
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
+    "dotenv": "^17.2.0",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "dotenv": "^17.2.0"
   }
 }
