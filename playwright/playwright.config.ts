@@ -34,7 +34,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
   // Directory where Playwright stores test artifacts (e.g., screenshots, traces, videos)
   outputDir: 'artifacts',
