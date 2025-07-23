@@ -10,12 +10,12 @@ This directory contains the end-to-end automated test suite using [Playwright](h
 
 ## How to run the project locally
 
-### 1. Fork and Clone the Main Project
+### 1. Fork and Clone the Schooldrive API
 
-1. Fork the [ESSR-IT/website-essr](https://github.com/ESSR-IT/website-essr) project to your GitHub account.
+1. Fork the [ESSR-IT/essr-schooldrive](https://github.com/iMDT/essr-schooldrive) project to your GitHub account.
 2. Clone your fork to your machine:
    ```bash
-   git clone https://github.com/<your-username>/website-essr.git
+   git clone https://github.com/<your-username>/essr-schooldrive.git
    ```
 3. Navigate to the root of the cloned project and run:
    ```bash
@@ -45,6 +45,14 @@ Navigate to the `playwright` folder and install dependencies:
 cd playwright && npm install
 ```
 
+> **Note:** The following installation command is intended for **Ubuntu** systems.  
+> If you are using **Windows** or **macOS**, you do **not** need the `--with-deps` flag.
+
+Then, install Playwright and its required browsers and dependencies:
+```bash
+npx playwright install --with-deps
+```
+
 ---
 
 ### 4. Environment Setup
@@ -56,30 +64,7 @@ cp playwright/.env.test.example playwright/.env.test
 
 ---
 
-### 5. Install the Playwright Extension in VS Code
-
-Install the **Playwright Test for VSCode** extension in your VS Code IDE.
-
----
-
-### 6. Creating Tests
-
-#### 6.1 Creating Tests the Easy Way
-
-To make your Playwright experience easier, we recommend watching short videos that provide an overview of the tool and demonstrate how to create tests simply and visually, directly from VS Code.
-
-- [Official documentation: Playwright in VS Code](https://playwright.dev/docs/getting-started-vscode)
-
-With these resources, you will learn how to:
-- Use Playwright inside VS Code with a visual interface
-- Record and generate tests automatically, writing minimal code
-- Debug and inspect your tests intuitively
-
----
-
-## Important Information
-
-### Test Files
+### 5. Creating Tests
 
 - All test files must be created inside the `tests` folder within the `playwright` directory.
 - Test file names **must follow the pattern** `*.e2e-spec.ts` (e.g., `home.e2e-spec.ts`).
@@ -92,37 +77,45 @@ With these resources, you will learn how to:
   testMatch: '**/*.e2e-spec.ts',
   ```
 
+---
+
+### 6. Different Ways to Run the Tests
+
+#### Run tests in standard mode
+
+```bash
+npm run test
+```
+
+Runs all automated tests in the terminal using the default mode.
+
+#### Open the visual interface to explore and run tests
+
+```bash
+npm run test:ui
+```
+
+Opens the interactive graphical interface of the Playwright Test Runner, allowing you to view and run tests individually.
+
+#### Record interactive tests with Codegen
+
+```bash
+npm run test:live-record
+```
+
+Opens the Chromium browser in interactive mode to capture user actions and automatically generate test code.
+
+---
+
+## Important Information
+
 ### BASE_URL Environment Variable
 
 - In continuous integration (CI) environments such as GitHub Actions workflows, the `BASE_URL` is dynamically set with the link generated in the pull request comment by the bot.
 
----
 
-## Available Scripts
+### Available Scripts
 
 > **Important:** All npm scripts below must be run from the `playwright` folder.
 
-- **test**: Runs all automated Playwright tests.
-  ```bash
-  npm run test
-  ```
 
-- **test:local**: Runs tests using the local URL defined in the `BASE_URL` environment variable.
-  ```bash
-  npm run test:local
-  ```
-
-- **test:ui**: Runs tests using the visual Playwright UI, useful for debugging and inspecting.
-  ```bash
-  npm run test:ui
-  ```
-
-- **test:debug-local**: Runs tests locally with detailed Playwright logs for debugging.
-  ```bash
-  npm run test:debug-local
-  ```
-
-- **test:report**: Opens a web interface with the report of previously executed tests.
-  ```bash
-  npm run test:report
-  ```
