@@ -53,6 +53,7 @@ Then, install Playwright and its required browsers and dependencies:
 npx playwright install --with-deps
 ```
 
+
 ---
 
 ### 4. Environment Setup
