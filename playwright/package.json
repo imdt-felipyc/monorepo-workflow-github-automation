@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test --reporter=list,html",
+    "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:live-record": "playwright codegen -b cr"
   },
