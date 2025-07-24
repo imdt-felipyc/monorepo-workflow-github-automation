@@ -6,8 +6,7 @@ on:
 
 jobs:
   playwright-test:
-    if: |
-      github.event.issue.pull_request != null
+    if: github.event.issue.pull_request != null
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -35,16 +34,7 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('playwright/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-cache-
-
-      - name: Cache Playwright Browsers
-        id: cache-playwright-browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('playwright/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-playwright-browsers-
+          restore-keys: ${{ runner.os }}-npm-cache-
 
       - name: Install dependencies
         working-directory: playwright
