@@ -78,6 +78,7 @@ cp playwright/.env.test.example playwright/.env.test
   testMatch: '**/*.e2e-spec.ts',
   ```
 
+
 ---
 
 ### 6. Different Ways to Run the Tests
