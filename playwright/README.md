@@ -82,6 +82,7 @@ cp playwright/.env.test.example playwright/.env.test
 
 ### 6. Different Ways to Run the Tests
 
+
 #### Run tests in standard mode
 
 ```bash
