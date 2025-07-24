@@ -33,10 +33,10 @@ jobs:
       - name: Cache npm
         uses: actions/cache@v4
         with:
-          path: playwright/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('playwright/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('playwright/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-cache-
 
       - name: Cache Playwright Browsers
         id: cache-playwright-browsers
@@ -52,14 +52,7 @@ jobs:
 
       - name: Install Playwright Browsers
         working-directory: playwright
-        run: |
-          if [ "${{ steps.cache-playwright-browsers.outputs.cache-hit }}" = "true" ]; then
-            echo "✅ Cache hit. Installing browsers without system dependencies..."
-            npx playwright install
-          else
-            echo "⚠️ No cache hit. Installing browsers with system dependencies..."
-            npx playwright install --with-deps
-          fi
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         working-directory: playwright
