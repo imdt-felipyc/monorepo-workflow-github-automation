@@ -53,7 +53,6 @@ Then, install Playwright and its required browsers and dependencies:
 npx playwright install --with-deps
 ```
 
-
 ---
 
 ### 4. Environment Setup
@@ -81,7 +80,6 @@ cp playwright/.env.test.example playwright/.env.test
 ---
 
 ### 6. Different Ways to Run the Tests
-
 
 #### Run tests in standard mode
 

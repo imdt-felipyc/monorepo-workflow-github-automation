@@ -8,7 +8,7 @@ test.describe('home', () => {
 
     if (isMobile) {
       await expect(page.getByText('Gesundheitskurse für alle')).toBeVisible();
-      return ;
+      return
     }
 
     await expect(page.getByText('Gesundheitskurse für alle')).toBeVisible();

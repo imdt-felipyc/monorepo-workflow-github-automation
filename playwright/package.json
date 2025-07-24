@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
+    "test": "playwright test --reporter=list",
     "test:ui": "playwright test --ui",
     "test:live-record": "playwright codegen -b cr"
   },
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
-    "dotenv": "^17.2.0",
+    "dotenv": "^16.3.1",
     "typescript": "^5.8.3"
   }
 }
