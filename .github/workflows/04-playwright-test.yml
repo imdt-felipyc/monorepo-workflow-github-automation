@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Playwright tests
         working-directory: playwright
-        run: BASE_URL=${{ steps.extract_link.outputs.LINK }} npx playwright test --reporter=list,html
+        run: BASE_URL=${{ steps.extract_link.outputs.LINK }} npx playwright test
 
       - name: Upload Playwright report and artifacts
         if: ${{ always() }}
