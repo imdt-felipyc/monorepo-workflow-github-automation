@@ -119,4 +119,3 @@ Opens the Chromium browser in interactive mode to capture user actions and autom
 > **Important:** All npm scripts below must be run from the `playwright` folder.
 
 
-
