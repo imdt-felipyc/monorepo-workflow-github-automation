@@ -1,8 +1,0 @@
-
-# Playwright
-/node_modules/
-/report/
-/artifacts/
-/blob-report/
-.cache/
-.env.test
