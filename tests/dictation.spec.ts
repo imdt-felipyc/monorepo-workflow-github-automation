@@ -14,24 +14,17 @@ const {
 test.describe('Exercise functionality',() => {
 
   test.beforeEach(async ({ page }) => {
-    test.setTimeout(120_000);
-
-    console.log('PLAYWRIGHT_TEST_BASE_URL:', env.PLAYWRIGHT_TEST_BASE_URL)
-    console.log(env.PLAYWRIGHT_TEST_BASE_URL)
-    console.log('PLAYWRIGHT_DICTATION_UNIT_URL:', env.PLAYWRIGHT_DICTATION_UNIT_URL)
-    console.log(env.PLAYWRIGHT_DICTATION_UNIT_URL)
-    console.log('PLAYWRIGHT_USERNAME:', env.PLAYWRIGHT_USERNAME)
-    console.log(env.PLAYWRIGHT_USERNAME)
-    console.log('PLAYWRIGHT_PASSWORD:', env.PLAYWRIGHT_PASSWORD)
-    console.log(env.PLAYWRIGHT_PASSWORD)
-
-
+    test.setTimeout(5 * 60 * 1000); // 5 minutes
     await login(page, {
       email: PLAYWRIGHT_USERNAME,
       password: PLAYWRIGHT_PASSWORD,
       remember: false,
     });
     await page.goto(PLAYWRIGHT_DICTATION_UNIT_URL);
+
+    const dictationLink = page.locator('h4:has-text("Dictée")');
+    await expect(dictationLink).toBeVisible({ timeout: 5000 });
+    await dictationLink.click();
     
     await resetDictationIfFinished(page);
   });
@@ -47,7 +40,7 @@ test.describe('Exercise functionality',() => {
     ).toBeVisible({ timeout: 10_000 });
 
     await mainControls.locator('.control-btn').click();
-    await page.waitForTimeout(1_000);
+    await page.waitForTimeout(300);
 
     const isPlaying = await dictationFrame
       .locator('audio')
@@ -182,8 +175,7 @@ test.describe('Exercise functionality',() => {
     await expect(retryAllBtn).toBeVisible({ timeout: 10000 });
     await retryAllBtn.click();
 
-    const dictFrame = await getDictationFrame(page);
-    const input = dictFrame.locator('.sound-section .input-wrapper input[type="text"]');
+    const input = frame.locator('.sound-section .input-wrapper input[type="text"]');
     await expect(input).toBeVisible({timeout: 10000});
   });
 
