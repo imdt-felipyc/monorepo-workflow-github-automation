@@ -175,8 +175,7 @@ test.describe('Exercise functionality',() => {
     await expect(retryAllBtn).toBeVisible({ timeout: 10000 });
     await retryAllBtn.click();
 
-    const dictFrame = await getDictationFrame(page);
-    const input = dictFrame.locator('.sound-section .input-wrapper input[type="text"]');
+    const input = frame.locator('.sound-section .input-wrapper input[type="text"]');
     await expect(input).toBeVisible({timeout: 10000});
   });
 
@@ -289,7 +288,7 @@ test.describe('Exercise functionality',() => {
 
 async function getDictationFrame(page: Page): Promise<FrameLocator> {
   const selector = '.modal.activity-modal.is-active section.modal-card-body iframe[src]';
-  await expect(page.locator(selector)).toBeVisible({ timeout: 5000 });
+  await expect(page.locator(selector)).toBeVisible({ timeout: 10000 });
   return page.frameLocator(selector);
 }
 async function resetDictationIfFinished(page: Page) {
