@@ -15,23 +15,16 @@ test.describe('Exercise functionality',() => {
 
   test.beforeEach(async ({ page }) => {
     test.setTimeout(120_000);
-
-    console.log('PLAYWRIGHT_TEST_BASE_URL:', env.PLAYWRIGHT_TEST_BASE_URL)
-    console.log(env.PLAYWRIGHT_TEST_BASE_URL)
-    console.log('PLAYWRIGHT_DICTATION_UNIT_URL:', env.PLAYWRIGHT_DICTATION_UNIT_URL)
-    console.log(env.PLAYWRIGHT_DICTATION_UNIT_URL)
-    console.log('PLAYWRIGHT_USERNAME:', env.PLAYWRIGHT_USERNAME)
-    console.log(env.PLAYWRIGHT_USERNAME)
-    console.log('PLAYWRIGHT_PASSWORD:', env.PLAYWRIGHT_PASSWORD)
-    console.log(env.PLAYWRIGHT_PASSWORD)
-
-
     await login(page, {
       email: PLAYWRIGHT_USERNAME,
       password: PLAYWRIGHT_PASSWORD,
       remember: false,
     });
     await page.goto(PLAYWRIGHT_DICTATION_UNIT_URL);
+
+    const dictationLink = page.locator('h4:has-text("Dictée")');
+    await expect(dictationLink).toBeVisible({ timeout: 5000 });
+    await dictationLink.click();
     
     await resetDictationIfFinished(page);
   });
@@ -296,7 +289,7 @@ test.describe('Exercise functionality',() => {
 
 async function getDictationFrame(page: Page): Promise<FrameLocator> {
   const selector = '.modal.activity-modal.is-active section.modal-card-body iframe[src]';
-  await expect(page.locator(selector)).toBeVisible({ timeout: 10000 });
+  await expect(page.locator(selector)).toBeVisible({ timeout: 5000 });
   return page.frameLocator(selector);
 }
 async function resetDictationIfFinished(page: Page) {
