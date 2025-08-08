@@ -14,7 +14,7 @@ const {
 test.describe('Exercise functionality',() => {
 
   test.beforeEach(async ({ page }) => {
-    test.setTimeout(120_000);
+    test.setTimeout(5 * 60 * 1000); // 5 minutes
     await login(page, {
       email: PLAYWRIGHT_USERNAME,
       password: PLAYWRIGHT_PASSWORD,
