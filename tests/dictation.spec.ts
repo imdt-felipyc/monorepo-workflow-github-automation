@@ -40,7 +40,7 @@ test.describe('Exercise functionality',() => {
     ).toBeVisible({ timeout: 10_000 });
 
     await mainControls.locator('.control-btn').click();
-    await page.waitForTimeout(1_000);
+    await page.waitForTimeout(300);
 
     const isPlaying = await dictationFrame
       .locator('audio')
